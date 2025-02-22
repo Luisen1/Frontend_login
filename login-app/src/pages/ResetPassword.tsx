@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { resetPassword } from "../services/authService";
 
 function ResetPassword() {
@@ -32,7 +32,7 @@ function ResetPassword() {
         <button className="bg-blue-500 text-white w-full p-2 rounded">Enviar enlace</button>
         {message && <p className="text-green-500 text-sm mt-2">{message}</p>}
         <p className="text-sm text-blue-500 cursor-pointer mt-2" onClick={() => navigate("/")}>
-          Volver al login
+            Volver al Login<Link to="/Login" className="text-blue-500"> Aquí</Link>
         </p>
       </form>
     </div>

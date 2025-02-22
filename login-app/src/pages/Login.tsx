@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { login } from "../services/authService";
 
 function Login() {
@@ -40,6 +40,12 @@ function Login() {
         />
         <button className="bg-blue-500 text-white w-full p-2 rounded">Entrar</button>
         {error && <p className="text-red-500 text-sm mt-2">{error}</p>}
+        <p className="text-sm mt-2">
+          ¿No tienes una cuenta? <Link to="/register" className="text-blue-500">Regístrate</Link>
+        </p>
+        <p className="forgetPassword">
+          Recuperar contraseña <Link to="/reset-password" className="text-blue-500">Aquí</Link>
+        </p>
       </form>
     </div>
   );

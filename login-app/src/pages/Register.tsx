@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { register } from "../services/authService";
 
 function Register() {
@@ -16,6 +16,11 @@ function Register() {
 
     if (password !== confirmPassword) {
       setError("Las contraseñas no coinciden");
+      return;
+    }
+
+    if (password.length < 8) {
+      setError("La contraseña debe tener al menos 8 caracteres");
       return;
     }
 
@@ -72,7 +77,7 @@ function Register() {
         {success && <p className="text-green-500 text-sm mt-2">{success}</p>}
 
         <p className="text-sm text-blue-500 cursor-pointer mt-2" onClick={() => navigate("/")}>
-          ¿Ya tienes cuenta? Inicia sesión
+          ¿Ya tienes cuenta? <Link to="/Login" className="text-blue-500">aquí</Link>
         </p>
       </form>
     </div>
