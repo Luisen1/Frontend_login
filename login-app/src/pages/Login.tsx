@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { login } from "../services/authService";
+import "./Login.css"; // Importa el archivo CSS
 
 function Login() {
   const [email, setEmail] = useState("");
@@ -13,17 +14,18 @@ function Login() {
     try {
       await login(email, password);
       navigate("/dashboard");
-    } catch {
-      setError("Credenciales incorrectas");
+    } catch (err) {
+      const error = err as Error;
+      setError(error.message);
     }
   };
 
   return (
-    <div className="flex items-center justify-center h-screen">
-      <form className="bg-white p-6 rounded shadow-md w-80" onSubmit={handleLogin}>
-        <h2 className="text-lg font-bold mb-4">Iniciar Sesión</h2>
+    <div className="login-container">
+      <form className="login-form" onSubmit={handleLogin}>
+        <h2 className="login-title">Iniciar Sesión</h2>
         <input
-          className="w-full p-2 border rounded mb-2"
+          className="login-input"
           type="email"
           placeholder="Correo"
           value={email}
@@ -31,19 +33,19 @@ function Login() {
           required
         />
         <input
-          className="w-full p-2 border rounded mb-2"
+          className="login-input"
           type="password"
           placeholder="Contraseña"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           required
         />
-        <button className="bg-blue-500 text-white w-full p-2 rounded">Entrar</button>
-        {error && <p className="text-red-500 text-sm mt-2">{error}</p>}
-        <p className="text-sm mt-2">
+        <button className="login-button">Entrar</button>
+        {error && <p className="login-error">{error}</p>}
+        <p className="login-link">
           ¿No tienes una cuenta? <Link to="/register" className="text-blue-500">Regístrate</Link>
         </p>
-        <p className="forgetPassword">
+        <p className="login-link">
           Recuperar contraseña <Link to="/reset-password" className="text-blue-500">Aquí</Link>
         </p>
       </form>

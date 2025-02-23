@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { register } from "../services/authService";
+import "./Register.css"; // Importa el archivo CSS
 
 function Register() {
   const [name, setName] = useState("");
@@ -34,12 +35,11 @@ function Register() {
   };
 
   return (
-    <div className="flex items-center justify-center h-screen bg-gray-100">
-      <form className="bg-white p-6 rounded shadow-md w-80" onSubmit={handleRegister}>
-        <h2 className="text-lg font-bold mb-4">Registro de Usuario</h2>
-
+    <div className="register-container">
+      <form className="register-form" onSubmit={handleRegister}>
+        <h2 className="register-title">Registro de Usuario</h2>
         <input
-          className="w-full p-2 border rounded mb-2"
+          className="register-input"
           type="text"
           placeholder="Nombre"
           value={name}
@@ -47,7 +47,7 @@ function Register() {
           required
         />
         <input
-          className="w-full p-2 border rounded mb-2"
+          className="register-input"
           type="email"
           placeholder="Correo"
           value={email}
@@ -55,7 +55,7 @@ function Register() {
           required
         />
         <input
-          className="w-full p-2 border rounded mb-2"
+          className="register-input"
           type="password"
           placeholder="Contraseña"
           value={password}
@@ -63,21 +63,18 @@ function Register() {
           required
         />
         <input
-          className="w-full p-2 border rounded mb-2"
+          className="register-input"
           type="password"
           placeholder="Confirmar Contraseña"
           value={confirmPassword}
           onChange={(e) => setConfirmPassword(e.target.value)}
           required
         />
-
-        <button className="bg-green-500 text-white w-full p-2 rounded">Registrarse</button>
-
-        {error && <p className="text-red-500 text-sm mt-2">{error}</p>}
-        {success && <p className="text-green-500 text-sm mt-2">{success}</p>}
-
-        <p className="text-sm text-blue-500 cursor-pointer mt-2" onClick={() => navigate("/")}>
-          ¿Ya tienes cuenta? <Link to="/Login" className="text-blue-500">aquí</Link>
+        <button className="register-button">Registrarse</button>
+        {error && <p className="register-error">{error}</p>}
+        {success && <p className="register-success">{success}</p>}
+        <p className="register-link">
+          ¿Ya tienes cuenta? <Link to="/">Inicia sesión</Link>
         </p>
       </form>
     </div>

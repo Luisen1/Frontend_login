@@ -1,38 +1,43 @@
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { resetPassword } from "../services/authService";
+import "./ResetPassword.css"; // Importa el archivo CSS
 
 function ResetPassword() {
   const [email, setEmail] = useState("");
-  const [message, setMessage] = useState("");
+  const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
   const navigate = useNavigate();
 
   const handleResetPassword = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
       await resetPassword(email);
-      setMessage("Revisa tu correo para restablecer tu contraseña.");
-    } catch {
-      setMessage("Error al enviar la solicitud. Intenta nuevamente.");
+      setSuccess("Solicitud de restablecimiento de contraseña enviada. Revisa tu correo.");
+      setTimeout(() => navigate("/"), 2000);
+    } catch (err) {
+      const error = err as Error;
+      setError(error.message);
     }
   };
 
   return (
-    <div className="flex items-center justify-center h-screen bg-gray-100">
-      <form className="bg-white p-6 rounded shadow-md w-80" onSubmit={handleResetPassword}>
-        <h2 className="text-lg font-bold mb-4">Recuperar Contraseña</h2>
+    <div className="reset-container">
+      <form className="reset-form" onSubmit={handleResetPassword}>
+        <h2 className="reset-title">Restablecer Contraseña</h2>
         <input
-          className="w-full p-2 border rounded mb-2"
+          className="reset-input"
           type="email"
           placeholder="Correo"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           required
         />
-        <button className="bg-blue-500 text-white w-full p-2 rounded">Enviar enlace</button>
-        {message && <p className="text-green-500 text-sm mt-2">{message}</p>}
-        <p className="text-sm text-blue-500 cursor-pointer mt-2" onClick={() => navigate("/")}>
-            Volver al Login<Link to="/Login" className="text-blue-500"> Aquí</Link>
+        <button className="reset-button">Enviar</button>
+        {error && <p className="reset-error">{error}</p>}
+        {success && <p className="reset-success">{success}</p>}
+        <p className="reset-link">
+          ¿Ya tienes cuenta? <Link to="/">Inicia sesión</Link>
         </p>
       </form>
     </div>
