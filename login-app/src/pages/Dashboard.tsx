@@ -25,6 +25,10 @@ function Dashboard() {
         <h1 className="dashboard-title">Bienvenido al Dashboard</h1>
         <span className="user-role">{role}</span>
       </div>
+      <div className="dashboard-buttons">
+        <button className="user-button">User</button>
+        {role === "ADMIN" && <button className="admin-button">Admin</button>}
+      </div>
       <button className="logout-button" onClick={handleLogout}>
         Cerrar sesión
       </button>

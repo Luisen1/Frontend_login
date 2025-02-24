@@ -6,7 +6,7 @@ const API_URL_USER = "http://localhost:8080/user";
 export async function login(email: string, password: string) {
   const response = await axios.post(`${API_URL}/login`, { email, password });
   localStorage.setItem("token", response.data.jwtToken);
-  localStorage.setItem("role", response.data.roles[0].username); // Almacena el rol del usuario
+  localStorage.setItem("role", response.data.roles[0].name); // Almacena el rol del usuario
 }
 
 export function logout() {
