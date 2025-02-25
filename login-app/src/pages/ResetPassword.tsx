@@ -14,7 +14,7 @@ function ResetPassword() {
     try {
       await resetPassword(email);
       setSuccess("Solicitud de restablecimiento de contraseña enviada. Revisa tu correo.");
-      setTimeout(() => navigate("/"), 2000);
+      setTimeout(() => navigate("/verification-code"), 2000); // Redirige a VerificationCode
     } catch (err) {
       const error = err as Error;
       setError(error.message);
