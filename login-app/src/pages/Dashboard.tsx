@@ -9,6 +9,7 @@ function Dashboard() {
 
   useEffect(() => {
     const userRole = localStorage.getItem("role");
+    console.log("User role from localStorage:", userRole); // Agrega este console.log
     if (userRole) {
       setRole(userRole);
     }

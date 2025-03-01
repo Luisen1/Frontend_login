@@ -7,7 +7,7 @@ const API_URL_RECOVERY = "http://localhost:8080/email";
 export async function login(email: string, password: string) {
   const response = await axios.post(`${API_URL}/login`, { email, password });
   localStorage.setItem("token", response.data.jwtToken);
-  localStorage.setItem("role", response.data.roles[0].name); // Almacena el rol del usuario
+  localStorage.setItem("role", response.data.roles[0]); // Almacena el primer rol del usuario
 }
 
 export function logout() {
@@ -33,18 +33,18 @@ export const resetPassword = async (email: string) => {
   }
 };
 
-export const changePassword = async (password: string) => {
+export const changePassword = async (email: string, password: string, securityCode: string) => {
   try {
-    const response = await axios.post(`${API_URL_USER}/change-password`, { password });
+    const response = await axios.post(`${API_URL_USER}/change-password`, { email, password, securityCode });
     return response.data;
   } catch (error) {
     throw new Error("Error al cambiar la contraseña");
   }
 };
 
-export const verifyCode = async (code: string) => {
+export const verifyCode = async (email: string, code: string) => {
   try {
-    const response = await axios.post(`${API_URL_USER}/validate-code`, { code });
+    const response = await axios.post(`${API_URL_USER}/validate-code`, { email, securityCode: code });
     return response.data;
   } catch (error) {
     throw new Error("Error al verificar el código");

@@ -4,6 +4,7 @@ import { verifyCode } from "../services/authService"; // Asegúrate de tener est
 import "./VerificationCode.css"; // Importa el archivo CSS
 
 function VerificationCode() {
+  const [email, setEmail] = useState("");
   const [code, setCode] = useState("");
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
@@ -12,7 +13,7 @@ function VerificationCode() {
   const handleVerifyCode = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      await verifyCode(code);
+      await verifyCode(email, code);
       setSuccess("Código verificado exitosamente.");
       setTimeout(() => navigate("/change-password"), 2000); // Redirige a la página de cambio de contraseña
     } catch (err) {
@@ -27,8 +28,16 @@ function VerificationCode() {
         <h2 className="verification-title">Verificar Código</h2>
         <input
           className="verification-input"
+          type="email"
+          placeholder="Correo"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          required
+        />
+        <input
+          className="verification-input"
           type="text"
-          placeholder="Código"
+          placeholder="Código de Verificación"
           value={code}
           onChange={(e) => setCode(e.target.value)}
           required
